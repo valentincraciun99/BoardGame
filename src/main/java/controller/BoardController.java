@@ -1,6 +1,6 @@
 package controller;
 
-import common.Table;
+import controller.enums.GameState;
 import model.Coordinates;
 import services.Seated;
 import services.enums.Turn;
@@ -10,12 +10,13 @@ import view.resources.OvalComponent;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 
 public class BoardController {
     BoardView boardView;
     Seated seated;
+    GameState gameState = GameState.selectPiece;
+    OvalComponent selectedPiece;
 
     public BoardController(BoardView boardView,Seated seated) {
         this.boardView = boardView;
@@ -117,12 +118,39 @@ public class BoardController {
                             {
                                 g.setColor(Color.BLUE);
                             }
-                            var a= Table.getInstance();
-                            System.out.println(((OvalComponent) component).getCoordinates().getX() + " " +((OvalComponent) component).getCoordinates().getY() );
+
                             ((OvalComponent) component).paintComponent(g);
-
-
                         }
+                        else
+                        {
+                            if(gameState==GameState.selectPiece)
+                            {
+                                selectedPiece = ((OvalComponent) component);
+                                gameState = GameState.movePiece;
+                            }
+                            else if(gameState == GameState.movePiece)
+                            {
+                                if(seated.movePiece(new Coordinates(selectedPiece.getCoordinates().getX(),selectedPiece.getCoordinates().getY(),0,0),
+                                                new Coordinates(((OvalComponent) component).getCoordinates().getX(),((OvalComponent) component).getCoordinates().getY(),0,0))) {
+                                    Graphics g1 =  selectedPiece.getGraphics();
+                                    g1.setColor(Color.BLACK);
+                                    selectedPiece.paintComponent(g1);
+
+                                    Graphics g2= ((OvalComponent) component).getGraphics();
+                                    if (seated.getCurrentUser() == Turn.firstUser)
+                                        g2.setColor(Color.RED);
+                                    else
+                                        g2.setColor(Color.BLUE);
+
+                                    ((OvalComponent) component).paintComponent(g2);
+
+
+                                }
+                                gameState = GameState.selectPiece;
+
+                            }
+                        }
+
 
                     }
                 }
@@ -130,7 +158,8 @@ public class BoardController {
             boardView.add(ovalComponent);
 
         }
-        boardView.repaint();
+      //  boardView.repaint();
+
 
     }
 

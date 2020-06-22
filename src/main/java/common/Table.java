@@ -43,8 +43,15 @@ public class Table {
             matrix[line][column] =2;
         }
 
+    }
 
+    public void deletePiece(int line,int column)
+    {
+        matrix[line][column]=0;
+    }
 
+    public Integer getValueAt(int i,int j){
+        return matrix[i][j];
     }
 
 
