@@ -1,5 +1,6 @@
 package controller;
 
+import common.Table;
 import controller.enums.GameState;
 import model.Coordinates;
 import services.Seated;
@@ -7,6 +8,7 @@ import services.enums.Turn;
 import view.BoardView;
 import view.resources.OvalComponent;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -146,8 +148,36 @@ public class BoardController {
 
 
                                 }
-                                gameState = GameState.selectPiece;
+                                if(seated.getMaxNumberOfPiecesPerLineOrColumn(new Coordinates(((OvalComponent) component).getCoordinates().getX(),((OvalComponent) component).getCoordinates().getY(),0,0),
+                                        Table.getInstance().getValueAt(((OvalComponent) component).getCoordinates().getX(),((OvalComponent) component).getCoordinates().getY()))>=3) {
+                                    gameState = GameState.eliminatePiece;
+                                    JOptionPane.showMessageDialog(null,"Eliminati o piesa a adversarului");
+                                }
+                                else
+                                    gameState = GameState.selectPiece;
 
+                            }
+                            else if(gameState == GameState.eliminatePiece)
+                            {
+                                System.out.println("dsad");
+
+                                Table.getInstance().deletePiece(((OvalComponent) component).getCoordinates().getX(),((OvalComponent) component).getCoordinates().getY());
+
+                                Graphics g2= ((OvalComponent) component).getGraphics();
+
+                                    g2.setColor(Color.BLACK);
+
+                                ((OvalComponent) component).paintComponent(g2);
+                                gameState=GameState.selectPiece;
+                            }
+                            var winner = seated.findWinner();
+                            if(winner == 1){
+                                JOptionPane.showMessageDialog(null,"Primul jucator a castigat");
+                                boardView.dispose();
+                            }
+                            if(winner == 2) {
+                                JOptionPane.showMessageDialog(null, "Al doilea jucator a castigat");
+                                boardView.dispose();
                             }
                         }
 

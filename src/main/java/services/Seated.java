@@ -45,8 +45,50 @@ public class Seated {
         return  false;
     }
 
+    public Integer getMaxNumberOfPiecesPerLineOrColumn(Coordinates coordinates,Integer playerValue)
+    {
+        Integer piecesLine=0;
+        Integer piecesColumn=0;
+        for(int i=1;i<=7;i++)
+        {
+            if(Table.getInstance().getValueAt(coordinates.getX(),i)==playerValue)
+                piecesLine++;
+            else if(Table.getInstance().getValueAt(coordinates.getX(),i)!=0)
+                piecesLine--;
+            if(Table.getInstance().getValueAt(i,coordinates.getY())==playerValue)
+                piecesColumn++;
+            else if(Table.getInstance().getValueAt(i,coordinates.getY())!=0)
+                piecesColumn--;
+
+        }
+
+        return  Math.max(piecesColumn,piecesLine);
+    }
+
     public Turn getCurrentUser(){
         return currentUser;
     }
 
+    public Integer findWinner() {
+        var firstPlayer = 0;
+        var secondPlayer= 1;
+
+        for(int i=1;i<=7;i++)
+        {
+            for(int j=1;j<=7;j++){
+                if(Table.getInstance().getValueAt(i,j)==1)
+                    firstPlayer++;
+                if(Table.getInstance().getValueAt(i,j)==2)
+                    secondPlayer++;
+            }
+        }
+
+        if(firstPlayer<=2)
+            return 2;
+        if(secondPlayer<=2)
+            return 1;
+
+        return 0;
+
+    }
 }
