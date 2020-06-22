@@ -6,12 +6,20 @@ public class Table {
 
     private static Table instance;
 
-    int[][] matrix;
+    int matrix[][]= {
+            { 0, 0, 0, 0 , 0, 0, 0,0 },
+            { 0, 0, 0, 0 , 0, 0, 0,0 },
+            { 0, 0, 0, 0 , 0, 0, 0,0 },
+            { 0, 0, 0, 0 , 0, 0, 0,0 },
+            { 0, 0, 0, 0 , 0, 0, 0,0 },
+            { 0, 0, 0, 0 , 0, 0, 0,0 },
+            { 0, 0, 0, 0 , 0, 0, 0,0 },
+            { 0, 0, 0, 0 , 0, 0, 0,0 }};;
 
     private  Table(){
 
-        for(int i=1;i<=5;i++)
-            for(int j=1;j<=5;j++)
+        for(int i=1;i<=7;i++)
+            for(int j=1;j<=7;j++)
                 matrix[i][j]=0;
 
     }

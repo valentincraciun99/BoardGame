@@ -1,5 +1,6 @@
 package controller;
 
+import common.Table;
 import model.Coordinates;
 import services.Seated;
 import services.enums.Turn;
@@ -105,7 +106,7 @@ public class BoardController {
                     super.mouseClicked(e);
                     var component = e.getSource();
                     if (component instanceof OvalComponent) {
-                        if(seated.putPiece()==true)
+                        if(seated.putPiece(((OvalComponent) component).getCoordinates())==true)
                         {
                             Graphics g = ((OvalComponent) component).getGraphics();
                             if(seated.getCurrentUser()== Turn.firstUser)
@@ -116,8 +117,11 @@ public class BoardController {
                             {
                                 g.setColor(Color.BLUE);
                             }
+                            var a= Table.getInstance();
                             System.out.println(((OvalComponent) component).getCoordinates().getX() + " " +((OvalComponent) component).getCoordinates().getY() );
                             ((OvalComponent) component).paintComponent(g);
+
+
                         }
 
                     }
