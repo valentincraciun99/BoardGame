@@ -1,5 +1,6 @@
 import controller.BoardController;
 import view.BoardView;
+import view.resources.BackgroundPanel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -10,10 +11,10 @@ import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) {
-        BufferedImage myImage = null;
+        BufferedImage backgroundImage = null;
         try {
-            myImage = ImageIO.read(new File("C:\\Users\\Valentin\\Desktop\\tintar.jpg"));
-            new BoardController(new BoardView("Tintar",myImage));
+            backgroundImage = ImageIO.read(new File("C:\\Users\\Valentin\\Desktop\\tintar.jpg"));
+            new BoardController(new BoardView("Tintar",new BackgroundPanel(backgroundImage)));
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error!");
             e.printStackTrace();
