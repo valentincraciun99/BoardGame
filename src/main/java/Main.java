@@ -1,4 +1,5 @@
 import controller.BoardController;
+import services.Seated;
 import view.BoardView;
 import view.resources.BackgroundPanel;
 
@@ -14,7 +15,7 @@ public class Main {
         BufferedImage backgroundImage = null;
         try {
             backgroundImage = ImageIO.read(new File("C:\\Users\\Valentin\\Desktop\\tintar.jpg"));
-            new BoardController(new BoardView("Tintar",new BackgroundPanel(backgroundImage)));
+            new BoardController(new BoardView("Tintar",new BackgroundPanel(backgroundImage)),new Seated());
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error!");
             e.printStackTrace();

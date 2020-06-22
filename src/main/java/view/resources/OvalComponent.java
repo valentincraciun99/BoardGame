@@ -10,6 +10,10 @@ public class OvalComponent extends JLabel {
     public String name;
     Coordinates coordinates;
 
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
     public OvalComponent(String name, Coordinates coordinates) {
         this.name = name;
         this.coordinates = coordinates;
