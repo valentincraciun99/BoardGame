@@ -14,10 +14,14 @@ public class Main {
     public static void main(String[] args) {
         BufferedImage backgroundImage = null;
         try {
-            backgroundImage = ImageIO.read(new File("C:\\Users\\Valentin\\Desktop\\tintar.jpg"));
+            File file = new File(
+                    Main.class.getClassLoader().getResource("tintar.jpg").getFile()
+            );
+            backgroundImage = ImageIO.read(file);
             new BoardController(new BoardView("Tintar",new BackgroundPanel(backgroundImage)),new Seated());
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error!");
+
             e.printStackTrace();
         }
 
